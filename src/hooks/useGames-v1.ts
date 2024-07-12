@@ -44,3 +44,5 @@
 // };
 
 // export default useGames;
+
+export {};
