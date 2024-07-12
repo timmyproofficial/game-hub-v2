@@ -9,9 +9,11 @@ import { Platform } from './hooks/usePlatforms';
 import SortSelector from './components/SortSelector';
 import GameHeading from './components/GameHeading';
 
+// undefined: the absence of a value
+// null: the intenational absence of a value
 export interface GameQuery {
-  genre: Genre | null;
-  platform: Platform | null;
+  genreId?: number;
+  platformId?: number;
   sortOrder: string;
   searchText: string;
 }
@@ -43,11 +45,13 @@ function App() {
         <GridItem area="aside" paddingX={5}>
           {/* <GenreList
             selectedGenre={selectedGenre}
-            onSelectGenre={(genre) => setSelectedGenre(genre)}
+            onSelectGenre={(genreId) => setSelectedGenre(genreId)}
           /> */}
           <GenreList
-            selectedGenre={gameQuery.genre}
-            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+            selectedGenreId={gameQuery.genreId}
+            onSelectGenre={(genre) =>
+              setGameQuery({ ...gameQuery, genreId: genre.id })
+            }
           />
         </GridItem>
       </Show>
@@ -56,7 +60,7 @@ function App() {
           <GameHeading gameQuery={gameQuery} />
           {/* <PlatformSelector
           selectedPlatform={selectedPlatform}
-          onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+          onSelectPlatform={(platformId) => setSelectedPlatform(platformId)}
         />
         <GameGrid
           selectedGenre={selectedGenre}
@@ -65,9 +69,9 @@ function App() {
 
           <HStack spacing={5} marginBottom={5}>
             <PlatformSelector
-              selectedPlatform={gameQuery.platform}
+              selectedPlatformId={gameQuery.platformId}
               onSelectPlatform={(platform) =>
-                setGameQuery({ ...gameQuery, platform })
+                setGameQuery({ ...gameQuery, platformId: platform.id })
               }
             />
             <SortSelector
